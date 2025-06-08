@@ -82,16 +82,26 @@
       display: none;
       flex-direction: column;
       background-color: #1c1c1c;
-      position: absolute;
-      top: 60px;
+      position: fixed;
+      top: 0;
       right: 0;
-      width: 100%;
+      height: 100%;
+      width: 250px;
+      padding: 2rem 1.5rem;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
       z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-nav.show {
+      display: flex;
+      transform: translateX(0);
     }
 
     .mobile-nav a {
-      padding: 1rem;
-      border-bottom: 1px solid #333;
+      margin-bottom: 1.2rem;
+      text-align: right;
     }
 
     .main {
@@ -135,10 +145,6 @@
         display: block;
       }
 
-      .mobile-nav.show {
-        display: flex;
-      }
-
       .main {
         flex-direction: column;
         text-align: center;
@@ -163,15 +169,16 @@
       <a href="login.html" class="btn-login">Login</a>
       <a href="signup.html" class="btn-started">Get Started</a>
     </nav>
-    <div class="mobile-nav" id="mobileMenu">
-      <a href="#" class="nav-link">Features</a>
-      <a href="#" class="nav-link">Pricing</a>
-      <a href="#" class="nav-link">About</a>
-      <a href="#" class="nav-link">Contact</a>
-      <a href="login.html" class="btn-login">Login</a>
-      <a href="signup.html" class="btn-started">Get Started</a>
-    </div>
   </header>
+
+  <div class="mobile-nav" id="mobileMenu">
+    <a href="#">Features</a>
+    <a href="#">Pricing</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="login.html" class="btn-login">Login</a>
+    <a href="signup.html" class="btn-started">Get Started</a>
+  </div>
 
   <section class="main">
     <div class="hero-text">
@@ -183,7 +190,7 @@
       <a href="signup.html" class="btn-started">Get Started</a>
     </div>
     <div class="hero-graphic">
-      <!-- Placeholder box -->
+      <!-- Graphic Placeholder -->
     </div>
   </section>
 
