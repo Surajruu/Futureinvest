@@ -79,7 +79,7 @@
     }
 
     .mobile-nav {
-      display: none;
+      display: flex;
       flex-direction: column;
       background-color: #1c1c1c;
       position: fixed;
@@ -95,7 +95,6 @@
     }
 
     .mobile-nav.show {
-      display: flex;
       transform: translateX(0);
     }
 
@@ -117,6 +116,17 @@
     .mobile-nav a.btn-started {
       background-color: #facc15;
       color: black !important;
+    }
+
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
     }
 
     .main {
@@ -181,6 +191,7 @@
 </head>
 <body>
 
+  <!-- Header -->
   <header>
     <div class="logo">FutureInvest</div>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
@@ -194,6 +205,10 @@
     </nav>
   </header>
 
+  <!-- Overlay for click outside -->
+  <div id="overlay" onclick="closeMenu()"></div>
+
+  <!-- Mobile Menu -->
   <div class="mobile-nav" id="mobileMenu">
     <a href="#">Features</a>
     <a href="#">Pricing</a>
@@ -203,6 +218,7 @@
     <a href="signup.html" class="btn-started">Get Started</a>
   </div>
 
+  <!-- Hero Section -->
   <section class="main">
     <div class="hero-text">
       <h1>Investment हैं तो <span style="color:#facc15">Future</span> है</h1>
@@ -212,15 +228,28 @@
       </p>
       <a href="signup.html" class="btn-started">Get Started</a>
     </div>
-    <div class="hero-graphic">
-      <!-- Graphic Placeholder -->
-    </div>
+    <div class="hero-graphic"></div>
   </section>
 
+  <!-- Script -->
   <script>
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('show');
+      const overlay = document.getElementById('overlay');
+      const isOpen = menu.classList.contains('show');
+
+      if (isOpen) {
+        menu.classList.remove('show');
+        overlay.style.display = 'none';
+      } else {
+        menu.classList.add('show');
+        overlay.style.display = 'block';
+      }
+    }
+
+    function closeMenu() {
+      document.getElementById('mobileMenu').classList.remove('show');
+      document.getElementById('overlay').style.display = 'none';
     }
   </script>
 
