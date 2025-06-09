@@ -76,7 +76,6 @@
       color: black;
     }
 
-    /* Dropdown styles */
     .nav-dropdown {
       position: relative;
     }
@@ -169,41 +168,6 @@
       z-index: 998;
     }
 
-    /* New ticker styles */
-    .ticker {
-      background-color: #1c1c1c;
-      overflow: hidden;
-      white-space: nowrap;
-      border-radius: 8px;
-      padding: 0.5rem 1.5rem;
-      margin: 1rem 0;
-    }
-
-    .ticker-wrap {
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    .ticker-move {
-      display: inline-block;
-      padding-left: 100%;
-      animation: tickerAnim 15s linear infinite;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #facc15;
-      font-family: 'Orbitron', sans-serif;
-      user-select: none;
-    }
-
-    @keyframes tickerAnim {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
     .main {
       display: flex;
       flex-wrap: wrap;
@@ -266,6 +230,36 @@
       }
     }
 
+    /* Ticker styles */
+    .ticker-container {
+      overflow: hidden;
+      white-space: nowrap;
+      background-color: #0f0f0f;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+      padding: 0.5rem 0;
+    }
+
+    .ticker-move {
+      display: inline-block;
+      padding-left: 100%;
+      animation: tickerAnim 15s linear infinite;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #facc15;
+      font-family: 'Orbitron', sans-serif;
+      user-select: none;
+    }
+
+    @keyframes tickerAnim {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
     @media (max-width: 768px) {
       nav {
         display: none;
@@ -290,6 +284,10 @@
       .logo-text small {
         font-size: 0.6rem;
       }
+
+      .ticker-move {
+        animation-duration: 30s;
+      }
     }
   </style>
 </head>
@@ -304,7 +302,7 @@
     <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</button>
     <nav>
       <div class="nav-dropdown">
-        <a href="features.html" class="nav-link">Features </a>
+        <a href="features.html" class="nav-link">Features</a>
         <div class="dropdown-menu">
           <a href="newsletter.html">Newsletter</a>
           <a href="stock-analysis.html">Stock Analysis</a>
@@ -318,6 +316,13 @@
     </nav>
   </header>
 
+  <!-- Ticker -->
+  <div class="ticker-container">
+    <div class="ticker-move">
+      &nbsp;Newsletter • Stock Analysis • Newsletter • Stock Analysis • Newsletter • Stock Analysis • Newsletter • Stock Analysis • Newsletter • Stock Analysis •
+    </div>
+  </div>
+
   <!-- Overlay -->
   <div id="overlay" onclick="closeMenu()"></div>
 
@@ -329,15 +334,6 @@
     <a href="#">Contact</a>
     <a href="login.html" class="btn-login">Login</a>
     <a href="signup.html" class="btn-started">Get Started</a>
-  </div>
-
-  <!-- Ticker Section -->
-  <div class="ticker">
-    <div class="ticker-wrap">
-      <div class="ticker-move">
-        Newsletter Stock analysis &nbsp;&nbsp;&nbsp; Newsletter  Stock analysis &nbsp;&nbsp;&nbsp; Newsletter Stock analysis &nbsp;&nbsp;&nbsp; Newsletter Stock analysis &nbsp;&nbsp;&nbsp; Newsletter Stock analysis &nbsp;&nbsp;&nbsp;
-      </div>
-    </div>
   </div>
 
   <!-- Hero Section -->
