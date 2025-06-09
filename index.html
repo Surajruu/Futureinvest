@@ -25,14 +25,24 @@
       padding: 1rem 1.5rem;
       background-color: #0f0f0f;
       border-bottom: 1px solid #222;
-      position: relative;
     }
 
-    .logo {
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text span {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: white;
+    }
+
+    .logo-text small {
+      font-size: 0.75rem;
+      color: #cccccc;
     }
 
     nav {
@@ -49,9 +59,6 @@
       border-radius: 6px;
       font-weight: 500;
       transition: background-color 0.3s ease;
-    }
-
-    .nav-link {
       color: white;
     }
 
@@ -65,6 +72,41 @@
     }
 
     .btn-started {
+      background-color: #facc15;
+      color: black;
+    }
+
+    /* Dropdown styles */
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown .dropdown-menu {
+      position: absolute;
+      top: 120%;
+      left: 0;
+      background-color: #1c1c1c;
+      border-radius: 6px;
+      min-width: 160px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+      display: flex;
+    }
+
+    .nav-dropdown .dropdown-menu a {
+      padding: 0.5rem 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: 4px;
+    }
+
+    .nav-dropdown .dropdown-menu a:hover {
       background-color: #facc15;
       color: black;
     }
@@ -88,7 +130,6 @@
       height: 100%;
       width: 250px;
       padding: 2rem 1.5rem;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
       z-index: 999;
       transform: translateX(100%);
       transition: transform 0.3s ease;
@@ -101,8 +142,7 @@
     .mobile-nav a {
       margin-bottom: 1.2rem;
       text-align: right;
-      color: white !important;
-      background-color: transparent;
+      color: white;
       padding: 0.6rem 1rem;
       text-decoration: none;
       font-weight: 500;
@@ -115,7 +155,7 @@
 
     .mobile-nav a.btn-started {
       background-color: #facc15;
-      color: black !important;
+      color: black;
     }
 
     #overlay {
@@ -127,6 +167,41 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
       z-index: 998;
+    }
+
+    /* New ticker styles */
+    .ticker {
+      background-color: #1c1c1c;
+      overflow: hidden;
+      white-space: nowrap;
+      border-radius: 8px;
+      padding: 0.5rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .ticker-wrap {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .ticker-move {
+      display: inline-block;
+      padding-left: 100%;
+      animation: tickerAnim 15s linear infinite;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #facc15;
+      font-family: 'Orbitron', sans-serif;
+      user-select: none;
+    }
+
+    @keyframes tickerAnim {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
     }
 
     .main {
@@ -143,6 +218,8 @@
     .hero-text h1 {
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
     }
 
     .hero-text p {
@@ -150,6 +227,13 @@
       color: #cbd5e1;
       margin-bottom: 2rem;
       line-height: 1.5;
+      animation: fadeInUp 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-text .btn-started {
+      animation: fadeInUp 1.4s ease forwards;
+      opacity: 0;
     }
 
     .hero-graphic {
@@ -159,6 +243,27 @@
       width: 100%;
       max-width: 500px;
       box-shadow: 0 0 15px #facc15aa;
+      overflow: hidden;
+      animation: fadeInUp 1.6s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-graphic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 768px) {
@@ -172,19 +277,18 @@
 
       .main {
         flex-direction: column;
-        text-align: center;
       }
 
       .hero-graphic {
         height: 200px;
       }
 
-      .logo {
-        order: 1;
+      .logo-text span {
+        font-size: 1rem;
       }
 
-      .hamburger {
-        order: 2;
+      .logo-text small {
+        font-size: 0.6rem;
       }
     }
   </style>
@@ -193,10 +297,19 @@
 
   <!-- Header -->
   <header>
-    <div class="logo">Finalogue</div>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <div class="logo-text">
+      <span>Finalogue</span>
+      <small>Headlines to Holdings</small>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu">☰</button>
     <nav>
-      <a href="#" class="nav-link">Features</a>
+      <div class="nav-dropdown">
+        <a href="features.html" class="nav-link">Features </a>
+        <div class="dropdown-menu">
+          <a href="newsletter.html">Newsletter</a>
+          <a href="stock-analysis.html">Stock Analysis</a>
+        </div>
+      </div>
       <a href="#" class="nav-link">Pricing</a>
       <a href="#" class="nav-link">About</a>
       <a href="#" class="nav-link">Contact</a>
@@ -205,12 +318,12 @@
     </nav>
   </header>
 
-  <!-- Overlay for click outside -->
+  <!-- Overlay -->
   <div id="overlay" onclick="closeMenu()"></div>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Navigation -->
   <div class="mobile-nav" id="mobileMenu">
-    <a href="#">Features</a>
+    <a href="features.html">Features</a>
     <a href="#">Pricing</a>
     <a href="#">About</a>
     <a href="#">Contact</a>
@@ -218,17 +331,29 @@
     <a href="signup.html" class="btn-started">Get Started</a>
   </div>
 
+  <!-- Ticker Section -->
+  <div class="ticker">
+    <div class="ticker-wrap">
+      <div class="ticker-move">
+        Newsletter Stock analysis &nbsp;&nbsp;&nbsp; Newsletter  Stock analysis &nbsp;&nbsp;&nbsp; Newsletter Stock analysis &nbsp;&nbsp;&nbsp; Newsletter Stock analysis &nbsp;&nbsp;&nbsp; Newsletter Stock analysis &nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+
   <!-- Hero Section -->
   <section class="main">
     <div class="hero-text">
       <h1>Investment हैं तो <span style="color:#facc15">Future</span> है</h1>
       <p>
-        Make smarter decisions with Finalogue. Track performance, manage your portfolio,<br />
+        Make smarter decisions with Finalogue.<br>
+        Track performance, manage your portfolio,<br>
         and stay ahead in the market.
       </p>
       <a href="signup.html" class="btn-started">Get Started</a>
     </div>
-    <div class="hero-graphic"></div>
+    <div class="hero-graphic">
+      <img src="image.png" alt="Finalogue Logo" />
+    </div>
   </section>
 
   <!-- Script -->
@@ -255,7 +380,6 @@
 
 </body>
 </html>
-
 
 
 
