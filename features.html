@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Features - Finalogue</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f0f0f;
+      color: white;
+    }
+
+    .container {
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #facc15;
+      margin-bottom: 2rem;
+    }
+
+    .feature-box {
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1rem auto;
+      max-width: 500px;
+      box-shadow: 0 0 15px #facc15aa;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: scale(1.03);
+    }
+
+    .feature-box h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-box p {
+      color: #cccccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Our Features</h1>
+
+    <div class="feature-box" onclick="location.href='newsletter.html'">
+      <h2>📬 Newsletter</h2>
+      <p>Get curated financial news and updates right to your inbox.</p>
+    </div>
+
+    <div class="feature-box" onclick="location.href='stock-analysis.html'">
+      <h2>📈 Stock Analysis</h2>
+      <p>Deep insights and analytics to help you make informed decisions.</p>
+    </div>
+  </div>
+
+</body>
+</html>
