@@ -5,45 +5,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Features - Finalogue</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #0f0f0f;
       color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .container {
-      padding: 3rem 1.5rem;
       text-align: center;
+      padding: 2rem;
     }
 
     h1 {
-      color: #facc15;
+      color: white;
       margin-bottom: 2rem;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #ffffff55;
+    }
+
+    .features-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
 
     .feature-box {
       background-color: #1c1c1c;
       border-radius: 12px;
       padding: 2rem;
-      margin: 1rem auto;
-      max-width: 500px;
+      width: 100%;
+      max-width: 400px;
       box-shadow: 0 0 15px #facc15aa;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
     .feature-box:hover {
       transform: scale(1.03);
+      background-color: #2a2a2a;
     }
 
     .feature-box h2 {
       margin-bottom: 0.5rem;
+      color: #ffffff;
     }
 
     .feature-box p {
       color: #cccccc;
+      margin-bottom: 1rem;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .feature-button {
+      background-color: #facc15;
+      color: #000;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .feature-button:hover {
+      background-color: #e6b800;
+    }
+
+    @media (min-width: 768px) {
+      .feature-box {
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .feature-box {
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -52,14 +109,22 @@
   <div class="container">
     <h1>Our Features</h1>
 
-    <div class="feature-box" onclick="location.href='newsletter.html'">
-      <h2>📬 Newsletter</h2>
-      <p>Get curated financial news and updates right to your inbox.</p>
-    </div>
+    <div class="features-wrapper">
+      <!-- Left Box: Newsletter -->
+      <div class="feature-box">
+        <h2>Newsletter</h2>
+        <p>Get curated financial news and updates right to your inbox.</p>
+        <div class="button-group">
+          <button class="feature-button" onclick="location.href='weekly-newsletter.html'">Weekly Newsletter</button>
+          <button class="feature-button" onclick="location.href='monthly-newsletter.html'">Monthly Newsletter</button>
+        </div>
+      </div>
 
-    <div class="feature-box" onclick="location.href='stock-analysis.html'">
-      <h2>📈 Stock Analysis</h2>
-      <p>Deep insights and analytics to help you make informed decisions.</p>
+      <!-- Right Box: Stock Analysis -->
+      <div class="feature-box" onclick="location.href='stock-analysis.html'">
+        <h2>Stock Analysis</h2>
+        <p>Deep insights and analytics to help you make informed decisions.</p>
+      </div>
     </div>
   </div>
 
