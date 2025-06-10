@@ -36,8 +36,13 @@
     .logo-text span {
       font-family: 'Orbitron', sans-serif;
       font-size: 1.2rem;
-      font-weight: bold;
-      color: white;
+      font-weight: 700;
+      animation: blinkFinalogue 3.5s ease-in-out infinite;
+    }
+
+    @keyframes blinkFinalogue {
+      0%, 100% { color: #222; }
+      50% { color: #fff; }
     }
 
     .logo-text small {
@@ -68,7 +73,6 @@
 
     .btn-login {
       background-color: #1f2937;
-      color: white;
     }
 
     .btn-started {
@@ -230,7 +234,6 @@
       }
     }
 
-    /* Ticker styles */
     .ticker-container {
       overflow: hidden;
       white-space: nowrap;
@@ -319,7 +322,7 @@
   <!-- Ticker -->
   <div class="ticker-container">
     <div class="ticker-move">
-      &nbsp;Newsletter • Stock Analysis • Newsletter • Stock Analysis • Newsletter • Stock Analysis • Newsletter • Stock Analysis • Newsletter • Stock Analysis •
+      &nbsp;Newsletter • Stock Analysis • Newsletter • Stock Analysis • Newsletter • Stock Analysis •
     </div>
   </div>
 
