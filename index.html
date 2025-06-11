@@ -48,6 +48,8 @@
     .logo-text small {
       font-size: 0.75rem;
       color: #cccccc;
+      margin-top: 4px; /* 👈 adds space between g and H */
+      display: inline-block; /* required for margin-top */
     }
 
     nav {
@@ -246,7 +248,7 @@
     .ticker-move {
       display: inline-block;
       padding-left: 100%;
-      animation: tickerAnim 15s linear infinite;
+      animation: tickerAnim 39s linear infinite; /* ⏳ speed set to 39s */
       font-weight: 600;
       font-size: 1.1rem;
       color: #facc15;
@@ -255,12 +257,8 @@
     }
 
     @keyframes tickerAnim {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
 
     @media (max-width: 768px) {
@@ -289,7 +287,7 @@
       }
 
       .ticker-move {
-        animation-duration: 30s;
+        animation-duration: 39s;
       }
     }
   </style>
@@ -322,7 +320,7 @@
   <!-- Ticker -->
   <div class="ticker-container">
     <div class="ticker-move">
-      &nbsp;• Built in the dark • Ready for the market •
+      • Built in the dark • Ready for the market • Built in the dark • Ready for the market • Built in the dark • Ready for the market • Built in the dark • Ready for the market • Built in the dark • Ready for the market • Built in the dark • Ready for the market
     </div>
   </div>
 
