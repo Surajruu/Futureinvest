@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for GitHub icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth; /* Smooth scrolling for navigation links */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1e1e1e; /* Solid dark background, similar to demo */
+            color: #e0e0e0; /* Light text color */
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            margin: 0; /* Remove default body margin */
+            padding: 0; /* Remove default body padding */
+            /* Removed flexbox properties to allow main-content-panel to take full width/height */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Main content area background (the single dark panel) */
+        .main-content-panel {
+            background-color: #2a2a2a; /* Slightly lighter dark for content */
+            color: #e0e0e0;
+            width: 100%; /* Make it cover full width */
+            min-height: 100vh; /* Make it cover full height, allowing scroll */
+            border-radius: 0; /* Remove border-radius for full coverage */
+            box-shadow: none; /* Remove shadow as it's full screen */
+            padding: 2.5rem; /* Keep internal padding */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        /* About section underline */
+        .about-heading::after {
+            content: '';
+            display: block;
+            width: 50px; /* Adjust length as needed */
+            height: 2px;
+            background-color: #e0e0e0; /* Underline color */
+            margin-top: 8px;
+        }
+
+        /* Contact Me button styling from image */
+        .contact-btn {
+            background-color: transparent;
+            border: 1px solid #e0e0e0; /* White border */
+            color: #e0e0e0; /* White text */
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .contact-btn:hover {
+            background-color: #e0e0e0; /* White background on hover */
+            color: #2a2a2a; /* Dark text on hover */
+        }
+
+        /* Project card hover effect */
+        .project-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .project-card:hover {
+            transform: translateY(-5px); /* Lift slightly */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* More prominent shadow */
+        }
+
+        /* Hidden by default */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+        }
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        /* The Close Button */
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-container {
+            position: fixed;
+            left: 50%;
+            bottom: 48px;
+            transform: translateX(-50%);
+            z-index: 1500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 58px;
+            height: 31px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #888888;
+            transition: 0.4s;
+            border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 25px;
+            width: 25px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #ffffff;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #facc15;
+        }
+        input:checked + .slider:before {
+            transform: translateX(27px);
+        }
+        .slider::after {
+            content: 'OFF';
+            position: absolute;
+            color: #ffffff;
+            right: 9px;
+            top: 5px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        input:checked + .slider::after {
+            content: 'ON';
+            color: #222222;
+            left: 13px;
+            right: auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .toggle-container {
+                bottom: 16px;
+            }
+            .main-content-panel {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="main-content-panel">
+        <!-- Navigation Bar -->
+        <nav class="flex justify-between items-center mb-12">
+            <div class="text-lg font-semibold text-white">Suraj R</div> <!-- Name on left -->
+            <ul class="flex items-center space-x-6">
+                <li><a href="#top" class="hover:text-blue-400 transition duration-200">Home</a></li>
+                <li><a href="#about-section" class="hover:text-blue-400 transition duration-200">About</a></li>
+                <li><a href="#projects-section" class="hover:text-blue-400 transition duration-200">Work</a></li>
+                <li><a href="https://github.com/Surajruu" target="_blank" class="text-xl text-white hover:text-blue-400 transition duration-200"><i class="fab fa-github"></i></a></li> <!-- GitHub icon -->
+            </ul>
+        </nav>
+
+        <!-- Profile Section -->
+        <div id="top" class="flex flex-col md:flex-row items-center md:items-start justify-between mb-16">
+            <div class="text-center md:text-left md:w-2/3">
+                <p class="text-xl text-gray-400 mb-2">Hello, I'm Suraj R,</p>
+                <h2 class="text-6xl font-bold text-blue-400 mb-4 leading-tight">Web <br> Developer</h2>
+                <button id="contactMeBtn" class="contact-btn mt-4">
+                    Contact Me
+                </button>
+            </div>
+            <div class="flex-shrink-0 mt-8 md:mt-0 md:w-1/3 flex justify-center md:justify-end">
+                <div class="w-48 h-64 bg-gray-700 rounded-xl overflow-hidden flex items-center justify-center">
+                    <img src="https://placehold.co/180x240/4a4a4a/ffffff?text=Your+Pic" alt="Your Profile Picture" class="w-full h-full object-cover rounded-xl">
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <section id="about-section" class="mb-16">
+            <h3 class="text-3xl font-bold text-white mb-4 about-heading">About</h3>
+            <p class="text-gray-400 text-base leading-relaxed">
+                I am a data analyst and web developer who likes to design web pages.
+            </p>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="mb-16">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-8">
+                <div class="text-center">
+                    <h4 class="text-xl font-semibold text-white">Front-End</h4>
+                    <p class="text-gray-400 text-sm">15+ Hours Experience</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl font-semibold text-white">Python</h4>
+                    <p class="text-gray-400 text-sm">4 Years Experience</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl font-semibold text-white">Data Analyst</h4>
+                    <p class="text-gray-400 text-sm">50+ Hours Experience</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects-section" class="mb-12">
+            <h2 class="text-4xl font-bold text-white text-center mb-10">My Projects</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="bg-gray-700 rounded-xl shadow-md overflow-hidden project-card">
+                    <img src="https://placehold.co/400x250/3a3a3a/e0e0e0?text=Project+1" alt="Project 1 Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Data Analysis Dashboard</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Developed an interactive dashboard using Python and Plotly to visualize complex datasets and derive actionable insights.
+                        </p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 font-medium">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-gray-700 rounded-xl shadow-md overflow-hidden project-card">
+                    <img src="https://placehold.co/400x250/3a3a3a/e0e0e0?text=Project+2" alt="Project 2 Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Responsive Web Design</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Created a fully responsive website using HTML, CSS (Tailwind CSS), and JavaScript, ensuring optimal viewing across devices.
+                        </p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 font-medium">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-gray-700 rounded-xl shadow-md overflow-hidden project-card">
+                    <img src="https://placehold.co/400x250/3a3a3a/e0e0e0?text=Project+3" alt="Project 3 Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">E-commerce Backend API</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Built a robust RESTful API for an e-commerce platform using Python (Flask/Django) and a SQL database.
+                        </p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 font-medium">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Add more project cards as needed -->
+                <div class="bg-gray-700 rounded-xl shadow-md overflow-hidden project-card">
+                    <img src="https://placehold.co/400x250/3a3a3a/e0e0e0?text=Project+4" alt="Project 4 Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Interactive Data Visualization</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Designed and implemented interactive data visualizations for a research project, enhancing data comprehension.
+                        </p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 font-medium">View Project &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-gray-700 rounded-xl shadow-md overflow-hidden project-card">
+                    <img src="https://placehold.co/400x250/3a3a3a/e0e0e0?text=Project+5" alt="Project 5 Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Personal Blog Website</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Developed a personal blog platform with user authentication and content management features.
+                        </p>
+                        <a href="#" class="text-orange-400 hover:text-orange-500 font-medium">View Project &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm mt-12">
+            <p>&copy; 2025 [Suraj R]. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Toggle Switch (bottom center) -->
+    <div class="toggle-container">
+        <label class="switch">
+            <input type="checkbox" id="portfolioSwitch">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <!-- Contact Me Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModalBtn">&times;</span>
+            <h2 class="text-2xl font-bold text-white mb-4">Contact Me</h2>
+            <div class="space-y-4 text-lg">
+                <p><strong class="font-semibold">Phone: </strong> <a href="tel:+918971420755" class="text-blue-400 hover:underline">+91 8971420755</a></p>
+                <p><strong class="font-semibold">Instagram:</strong> <a href="https://instagram.com/[YourInstagramUsername]" target="_blank" class="text-blue-400 hover:underline">instagram.com/[YourInstagramUsername]</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Contact Modal functionality
+        const modal = document.getElementById("contactModal");
+        const btn = document.getElementById("contactMeBtn");
+        const span = document.getElementById("closeModalBtn");
+
+        btn.onclick = function() {
+            modal.style.display = "flex";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Toggle Switch functionality
+        const portfolioURL = "Portfoli.html"; // This page
+        const mainWebsiteURL = "index.html";  // Your main website
+
+        const switchEl = document.getElementById('portfolioSwitch');
+        
+        // Set switch to ON since this is the portfolio page
+        if (window.location.pathname.includes('Portfoli')) {
+            switchEl.checked = true;
+        } else {
+            switchEl.checked = false;
+        }
+
+        // Handle toggle switch changes
+        switchEl.addEventListener('change', function() {
+            if (this.checked) {
+                // Switch is ON → stay on portfolio (already here)
+                if (!window.location.pathname.includes('Portfoli')) {
+                    window.location.href = portfolioURL;
+                }
+            } else {
+                // Switch is OFF → go to main website
+                window.location.href = mainWebsiteURL;
+            }
+        });
+    </script>
+</body>
+</html>
