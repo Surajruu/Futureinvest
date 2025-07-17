@@ -84,7 +84,7 @@
     @keyframes typing { from { width: 0 } to { width: 100% } }
     @keyframes blink-caret { 0%,100% { border-color: transparent } 50% { border-color: #38bdf8 } }
 
-    /* Navigation bar styles: fully transparent, floating */
+    /* Navigation: Transparent floating at top-right */
     .main-nav {
       position: fixed;
       top: 0;
@@ -146,7 +146,7 @@
       color: #192857;
     }
 
-    /* Bottom toggle switch */
+    /* Improved Responsive and Smooth Toggle Switch */
     .toggle-container {
       position: fixed;
       left: 50%; bottom: 48px;
@@ -156,37 +156,77 @@
       justify-content: center;
       align-items: center;
       width: 100%;
+      padding: 0.5rem 0;
+      user-select: none;
     }
     .switch {
       position: relative;
       display: inline-block;
-      width: 1cm;
-      height: 18px;
+      width: 48px;
+      height: 28px;
+      margin: 0; padding: 0;
+      touch-action: manipulation;
+      vertical-align: middle;
     }
-    .switch input { opacity: 0; width: 0; height: 0; }
+    .switch input {
+      opacity: 0;
+      width: 100%; height: 100%;
+      position: absolute;
+      left: 0; top: 0;
+      cursor: pointer;
+      z-index: 2;
+    }
     .slider {
-      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #888;
-      border-radius: 12px;
-      transition: background-color 0.4s, box-shadow 0.3s;
-    }
-    .slider:before {
-      position: absolute; content: "";
-      height: 14px; width: 14px;
-      left: 2px; bottom: 2px;
-      background-color: #fff;
-      border-radius: 50%;
-      transition: transform 0.32s cubic-bezier(.44,1.37,.48,.94), background 0.3s;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.13);
+      display: block;
+      position: absolute;
+      inset: 0;
+      background: #a1a1aa;
+      border-radius: 999px;
+      box-shadow: 0 2px 10px #0002;
+      transition: background 0.36s cubic-bezier(.56,1.55,.59,0.98), box-shadow 0.25s;
+      cursor: pointer;
     }
     input:checked + .slider {
-      background-color: #facc15;
-      box-shadow: 0 0 8px 2px #facc1566;
+      background: linear-gradient(90deg, #facc15 30%, #ffe066 100%);
+      box-shadow: 0 2px 14px #facc1550;
     }
-    input:checked + .slider:before { transform: translateX(16px); }
-    .switch input:active + .slider:before { animation: thumbpress 0.19s cubic-bezier(.58,2,.55,.9); }
-    @keyframes thumbpress { 0%{transform:scale(1);} 40%{transform:scale(1.10);} 80%{transform:scale(0.96);} 100%{transform:scale(1);} }
+    .slider::before {
+      content: "";
+      position: absolute;
+      left: 3px; top: 3px;
+      width: 22px; height: 22px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px #2222;
+      transition:
+        transform 0.36s cubic-bezier(.56,1.52,.56,.97),
+        background 0.17s;
+      will-change: transform;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+      background: #fffbe9;
+      box-shadow: 0 2px 10px #facc1560;
+    }
+    .switch input:focus-visible + .slider,
+    .switch input:active + .slider {
+      outline: 2px solid #facc15;
+      outline-offset: 1px;
+      box-shadow: 0 2px 16px #facc1577;
+    }
+    .switch input:active + .slider:before {
+      animation: thumbActive 0.25s cubic-bezier(.38,2,.33,.77);
+    }
+    @keyframes thumbActive {
+      0%   { transform: scale(1) translateX(0);}
+      33%  { transform: scale(1.13) translateX(10px);}
+      80%  { transform: scale(0.99) translateX(20px);}
+      100% { transform: scale(1)   translateX(20px);}
+    }
     @media (max-width: 600px) {
+      .switch { width: 42px; height: 24px;}
+      .slider::before { width: 18px; height: 18px; top: 3px; left: 3px;}
+      input:checked + .slider:before { transform: translateX(16px);}
       .welcome-text { font-size:2.1rem; }
       .toggle-container { bottom:16px;}
     }
@@ -297,7 +337,7 @@
     </div>
   </div>
 
-  <!-- 1 cm Toggle Switch at Bottom Center -->
+  <!-- Responsive, Smooth Toggle Switch at Bottom Center -->
   <div class="toggle-container">
     <label class="switch">
       <input type="checkbox" id="portfolioSwitch">
@@ -306,7 +346,7 @@
   </div>
   
   <script>
-    // Welcome splash transition
+    // Welcome screen transition
     window.onload = function() {
       setTimeout(() => {
         document.getElementById('welcome-screen').classList.add('fade-out');
